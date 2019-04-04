@@ -1,7 +1,7 @@
 
 %%
-% Code to generate Figure 4,5,6 of CVPR submission 
-% Task similarity matrix  and Dendrograms for different blocks of encoder 
+% Code to generate Figure 4,5,6 of CVPR submission
+% Task similarity matrix  and Dendrograms for different blocks of encoder
 %% General set up
 
 % add path to rsa toolbox
@@ -10,9 +10,7 @@ clear;clc; close all hidden;
 returnHere = pwd;
 cd(returnHere)
 userOptions = defineUserOptions;
-mkdir('./Fig5');
-userOptions.rootPath = [pwd,filesep,'./Fig5'];
-userOptions.analysisName = 'C_Fig5';
+
 %% statistical inference
 % userOptions.RDMcorrelationType='Kendall_taua';
 userOptions.RDMcorrelationType='Spearman';
@@ -31,6 +29,9 @@ userOptions.candRDMdifferencesMultipleTesting = 'FDR';
 %% Path  RDM directory and save_dir
 rdm_path = '/media/kshitid20/My Passport1/Taskonomy_data/paper_data/RDM_taskonomy_on_taskonomy_500';
 save_dir = './Fig5'; %Results will be saved in Fig5 directory
+mkdir(save_dir);
+userOptions.rootPath = [pwd,filesep,save_dir];
+userOptions.analysisName = 'C_Fig5';
 
 %% list of tasks and layers
 % task list for reading RDM files
@@ -39,13 +40,13 @@ task_list = { 'autoencoder','class_1000', 'class_places', 'colorization','curvat
     'reshade', 'rgb2depth', 'rgb2mist', 'rgb2sfnorm','room_layout' , ...
     'segment25d', 'segment2d', 'segmentsemantic', ...
      'vanishing_point'} ;
-% task list with labels of actual tasks 
+% task list with labels of actual tasks
 task_list_labels = { 'autoencoding','object class', 'scene class', 'colorization','curvature', 'denoising', '2D edges', 'Occlusion edges', ...
     'inpainting','2D keypoints', '3D keypoints', ...
     'reshading', 'z-depth', 'distance', 'surface normals','room layout' , ...
     '2.5d segment', '2D segment', 'semantic segmentation', ...
      'vanishing point'} ;
-% task list sorted according to task type for generating task similarity matrices 
+% task list sorted according to task type for generating task similarity matrices
 task_list_labels_switched = { 'colorization', 'inpainting','autoencoding','denoising','2D keypoints',...
     '2D segment','2D edges','3D keypoints','2.5d segment','curvature',...
     'Occlusion edges','reshading','z-depth','distance','surface normals',...
@@ -81,8 +82,8 @@ for i = 1:numel(layer_list)
     for j=1:numel(task_list)
         userOptions.figure1filename = strcat(layer_list{i},'_',task_list{j});
         userOptions.figure2filename = strcat(layer_list{i},'_',task_list{j},'_2');
-        
-        %function that performs RSA analysis 
+
+        %function that performs RSA analysis
         layer_RSA{j,i} = rsa.compareRefRDM2candRDMs(taskonomy_RDMs(j,i),taskonomy_RDMs_cell(:,i), userOptions);
     end
 end
@@ -121,14 +122,13 @@ for layer=1:numel(layer_list)
     % matrix save path
     num_samples_str = int2str(num_samples);
     matrix_file_name =  strcat(save_dir,"/SM_",num_samples_str,'_',layer_list_refined{layer},".mat");
-    
+
     %switching the labels to cluster the rows of matrix according to task
     %type
     task_similarity_matrix=create_matrix_labels_switched(task_similarity_matrix,task_list_labels,task_list_labels_switched);
     save(matrix_file_name,'task_similarity_matrix')
     save_affinity_matrix(task_similarity_matrix,task_list_labels_switched,save_dir,layer_list_refined{layer})
-    
+
     %creating and saving dendrogram
     save_dendrogram(task_similarity_matrix,task_list_labels_switched,save_dir,layer_list_refined{layer})
 end
-
