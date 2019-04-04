@@ -17,7 +17,8 @@ function h = RDM_DNN(task_list,layer_list,layer_list_refined,output_path,class_t
             RDM_path = strcat(output_path,'/',task_list(i),'_',layer_name,'.mat');
             temp=load(RDM_path{1});
             h(i,j).RDM = temp.rdm(1:n_samples,1:n_samples);
-            h(i,j).name = strcat(task_list(i),'_',layer_list_refined(j));
+            RDM_name_cell = strcat(task_list(i),'-',layer_list_refined(j));
+            h(i,j).name = char(RDM_name_cell);
             if any(strcmp(semantic_task_list,task_list{i}))
                 h(i,j).color = {0,1,0};
             elseif any(strcmp(ldg_task_list,task_list{i}))
