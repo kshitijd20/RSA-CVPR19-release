@@ -19,6 +19,6 @@ This is just to ensure the code doesn't show errors due to version mismatch
 #### Step3 RSA analysis (generate figures from the paper)
 
 1. Change current directory to RSA_analysis
-2. run demo.m after modifying the rdm_dir, rsa_dir, and save_dir paths to corresponding paths in the demo to generate results for Figure 4 and 5 from the paper
+2. run demo.m after modifying the rdm_dir, rsa_dir, and save_dir paths to corresponding paths in the demo.m to generate results for Figure 4 and 5 from the paper
 
 The code to generate results for small models and pascal VOC will be released soon. For early access or any other queries please contact kshitijdwivedi93@gmail.com
