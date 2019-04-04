@@ -6,7 +6,7 @@ function h = RDM_DNN(task_list,layer_list,layer_list_refined,output_path,class_t
     threed_task_list = {'curvature','edge3d','keypoint3d','reshade', 'rgb2depth','rgb2sfnorm','segment25d','rgb2mist'};
     for i=1:numel(task_list)
         for j=1:numel(layer_list)
-            % fifth layer is prefinal which doesnt have feedforward
+            % fifth layer is encoder output which doesnt have feedforward
             % appended to its name so j<5 here 
             if (any(strcmp(class_task_list,task_list{i}))&&j<5) 
                 layer_name = strcat('feedforward_',layer_list(j));
