@@ -6,9 +6,10 @@ function h = RDM_DNN(task_list,layer_list,layer_list_refined,output_path,class_t
     threed_task_list = {'curvature','edge3d','keypoint3d','reshade', 'rgb2depth','rgb2sfnorm','segment25d','rgb2mist'};
     for i=1:numel(task_list)
         for j=1:numel(layer_list)
-            % fifth layer is encoder output which doesnt have feedforward
-            % appended to its name so j<5 here 
-            if (any(strcmp(class_task_list,task_list{i}))&&j<5) 
+            % to account for taskonomy layer naming style that includes
+            % feedforward for semantic and ldg tasks in encoder blocks but
+            % not in encoder output
+            if (any(strcmp(class_task_list,task_list{i}))&&contains(layer_list_refined(j),'block')) 
                 layer_name = strcat('feedforward_',layer_list(j));
             else
                 layer_name = layer_list(j);
@@ -17,7 +18,7 @@ function h = RDM_DNN(task_list,layer_list,layer_list_refined,output_path,class_t
             RDM_path = strcat(output_path,'/',task_list(i),'_',layer_name,'.mat');
             temp=load(RDM_path{1});
             h(i,j).RDM = temp.rdm(1:n_samples,1:n_samples);
-            RDM_name_cell = strcat(task_list(i),'-',layer_list_refined(j));
+            RDM_name_cell = strcat(task_list(i),'_',layer_list_refined(j));
             h(i,j).name = char(RDM_name_cell);
             if any(strcmp(semantic_task_list,task_list{i}))
                 h(i,j).color = {0,1,0};

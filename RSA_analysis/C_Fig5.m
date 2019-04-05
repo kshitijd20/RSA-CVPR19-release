@@ -31,6 +31,7 @@ function h = C_Fig5(rdm_dir,save_dir,rsa_dir)
     userOptions.nBootstrap = 20;
     userOptions.candRDMdifferencesThreshold = 0.05;
     userOptions.candRDMdifferencesMultipleTesting = 'FDR';
+    userOptions.saveFigurePDF = false;
 
 
     % Path  RDM directory and save_dir
@@ -89,7 +90,7 @@ function h = C_Fig5(rdm_dir,save_dir,rsa_dir)
     for i = 1:numel(layer_list)
         for j=1:numel(task_list)
             userOptions.figure1filename = strcat(layer_list{i},'_',task_list{j});
-            userOptions.figure2filename = strcat(layer_list{i},'_',task_list{j},'_2');
+            %userOptions.figure2filename = strcat(layer_list{i},'_',task_list{j},'_2');
 
             %function that performs RSA analysis
             layer_RSA{j,i} = rsa.compareRefRDM2candRDMs(taskonomy_RDMs(j,i),taskonomy_RDMs_cell(:,i), userOptions);
@@ -100,7 +101,7 @@ function h = C_Fig5(rdm_dir,save_dir,rsa_dir)
     %Changing the directory to current directory (as RSA function changes current directory)
     cd(returnHere)
     num_samples_str = int2str(num_samples);
-    rsa_results_file_name = strcat(save_dir,"/RSA_analysis_taskonomy_",num_samples_str,".mat");
+    rsa_results_file_name = strcat(save_dir,'/RSA_analysis_taskonomy_',num_samples_str,".mat");
     save(rsa_results_file_name,'layer_RSA')
 
     % generating task similarity matrices and dendrograms
@@ -118,7 +119,7 @@ function h = C_Fig5(rdm_dir,save_dir,rsa_dir)
         % sorted the for loop below performs the same
         for i=1:numel(task_list)
             for k=1:numel(layer_RSA{i,layer}.candRelatedness_r)
-                labels(k)=layer_RSA{i,layer}.orderedCandidateRDMnames{k};
+                labels(k)=layer_RSA{i,layer}.orderedCandidateRDMnames(k);
                 rdm_labels(k) = task_list_matrices(k,layer);
             end
             [vals,indices]=intersect(labels,rdm_labels);
@@ -129,7 +130,7 @@ function h = C_Fig5(rdm_dir,save_dir,rsa_dir)
         task_similarity_matrix = cell2mat(taskonomy_matrix);
         % matrix save path
         num_samples_str = int2str(num_samples);
-        matrix_file_name =  strcat(save_dir,"/SM_",num_samples_str,'_',layer_list_refined{layer},".mat");
+        matrix_file_name =  strcat(save_dir,'/SM_',num_samples_str,'_',layer_list_refined{layer},".mat");
 
         %switching the labels to cluster the rows of matrix according to task
         %type
