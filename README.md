@@ -14,7 +14,6 @@ This repo is build upon the code from the [Taskonomy paper](http://taskonomy.sta
 P.S.: Make sure you have enough space as saved features require lot of space (67 GB).
 
 #### Step2 Download my forked copy of [RSA toolbox](https://github.com/kshitijd20/rsatoolbox)
-This is just to ensure the code doesn't show errors due to version mismatch
 
 #### Step3 RSA analysis (generate figures from the paper)
 
