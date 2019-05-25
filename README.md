@@ -1,5 +1,5 @@
 # CVPR_RSA_release
-code for CVPR paper "Representation Similarity Analysis for Efficient Task Taxonomy and Transfer Learning"
+code for CVPR paper ["Representation Similarity Analysis for Efficient Task Taxonomy and Transfer Learning"](https://arxiv.org/abs/1904.11740)
 
 This repo is build upon the code from the [Taskonomy paper](http://taskonomy.stanford.edu/).
 #### Step1 RDM creation
