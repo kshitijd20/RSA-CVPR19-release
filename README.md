@@ -1,4 +1,4 @@
-# CVPR_RSA_release
+# CVPR_RSA_Taskonomy
 code for CVPR paper ["Representation Similarity Analysis for Efficient Task Taxonomy and Transfer Learning"](https://arxiv.org/abs/1904.11740)
 
 This repo is build upon the code from the [Taskonomy paper](http://taskonomy.stanford.edu/).
