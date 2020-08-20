@@ -1,3 +1,4 @@
+* ***News!!! We introduced a new generic framework to measure similarity between tasks. Please find our [code](https://github.com/cvai-repo/duality-diagram-similarity) and [paper(accepted in ECCV 2020)](https://arxiv.org/abs/2008.02107). 
 # CVPR_RSA_Taskonomy
 code for CVPR paper ["Representation Similarity Analysis for Efficient Task Taxonomy and Transfer Learning"](https://arxiv.org/abs/1904.11740)
 
